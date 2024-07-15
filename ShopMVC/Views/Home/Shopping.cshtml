@@ -1,0 +1,26 @@
+﻿@page
+@model IEnumerable< ShopMVC.Views.Home.ShoppingModel>
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Покупка товаров</title>
+</head>
+<body>
+    <div>
+        <h3>Товары в категориях: машины, наушники. </h3>
+        <table>
+            @foreach (ShopMVC.Models.Product product in Model) {
+                <tr>
+                    <td><p>@p.PlanetId</p></td>
+                    <td><p>@p.Name</p></td>
+                    <td><p>@p.QuantitySatellites</p></td>
+                    <td><p>@p.Volume</p></td>
+                </tr>
+            }
+        </table>
+    </div>
