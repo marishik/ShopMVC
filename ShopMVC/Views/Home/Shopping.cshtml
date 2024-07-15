@@ -1,7 +1,4 @@
-﻿@page
-@model IEnumerable< ShopMVC.Views.Home.ShoppingModel>
-@{
-}
+﻿@model List<Practice.Client.Product>
 
 <!DOCTYPE html>
 
@@ -14,13 +11,14 @@
     <div>
         <h3>Товары в категориях: машины, наушники. </h3>
         <table>
-            @foreach (ShopMVC.Models.Product product in Model) {
+            @foreach (var product in Model) {
                 <tr>
-                    <td><p>@p.PlanetId</p></td>
-                    <td><p>@p.Name</p></td>
-                    <td><p>@p.QuantitySatellites</p></td>
-                    <td><p>@p.Volume</p></td>
+                    <td><p>@product.Id</p></td>
+                    <td><p>@product.Name</p></td>
+                    <td><p>@product.Price</p></td>
+                    <td><p>@product.Category</p></td>
                 </tr>
             }
         </table>
     </div>
+</body>

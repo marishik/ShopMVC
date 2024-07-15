@@ -25,4 +25,8 @@
     <Folder Include="Views\Admin\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Practice.Client\Practice.Client.csproj" />
+  </ItemGroup>
+
 </Project>
