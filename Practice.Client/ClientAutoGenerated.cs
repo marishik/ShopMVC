@@ -17,13 +17,11 @@
 #pragma warning disable 8625 // Disable "CS8625 Cannot convert null literal to non-nullable reference type"
 #pragma warning disable CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
 
-namespace Practice.Client
-{
+namespace Practice.Client {
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PracticeClient
-    {
+    public partial class PracticeClient {
 #pragma warning disable 8618
         private string _baseUrl;
 #pragma warning restore 8618
@@ -39,18 +37,15 @@ namespace Practice.Client
             _httpClient = httpClient;
         }
 
-        private static Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
+        private static Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings() {
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
             UpdateJsonSerializerSettings(settings);
             return settings;
         }
 
-        public string BaseUrl
-        {
+        public string BaseUrl {
             get { return _baseUrl; }
-            set
-            {
+            set {
                 _baseUrl = value;
                 if (!string.IsNullOrEmpty(_baseUrl) && !_baseUrl.EndsWith("/"))
                     _baseUrl += '/';
@@ -67,22 +62,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<OrderResponse> PostOrderAsync(Order body)
-        {
+        public virtual System.Threading.Tasks.Task<OrderResponse> PostOrderAsync(Order body) {
             return PostOrderAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OrderResponse> PostOrderAsync(Order body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<OrderResponse> PostOrderAsync(Order body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -105,13 +96,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -119,30 +108,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<OrderResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -150,22 +131,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<OrderResponse> PutOrderAsync(Order body)
-        {
+        public virtual System.Threading.Tasks.Task<OrderResponse> PutOrderAsync(Order body) {
             return PutOrderAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<OrderResponse> PutOrderAsync(Order body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<OrderResponse> PutOrderAsync(Order body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -188,13 +165,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -202,30 +177,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<OrderResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -233,22 +200,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetOrderResponse> GetOrdersAsync()
-        {
+        public virtual System.Threading.Tasks.Task<GetOrderResponse> GetOrdersAsync() {
             return GetOrdersAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetOrderResponse> GetOrdersAsync(System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<GetOrderResponse> GetOrdersAsync(System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -267,13 +230,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -281,30 +242,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<GetOrderResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -312,22 +265,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetOrderResponse> GetOrderAsync(Order body)
-        {
+        public virtual System.Threading.Tasks.Task<GetOrderResponse> GetOrderAsync(Order body) {
             return GetOrderAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetOrderResponse> GetOrderAsync(Order body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<GetOrderResponse> GetOrderAsync(Order body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -350,13 +299,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -364,30 +311,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<GetOrderResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -395,22 +334,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<PaymentResponse> PostPaymentAsync(Payment body)
-        {
+        public virtual System.Threading.Tasks.Task<PaymentResponse> PostPaymentAsync(Payment body) {
             return PostPaymentAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<PaymentResponse> PostPaymentAsync(Payment body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<PaymentResponse> PostPaymentAsync(Payment body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -433,13 +368,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -447,30 +380,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<PaymentResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -478,22 +403,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<PaymentResponse> PutPaymentAsync(Payment body)
-        {
+        public virtual System.Threading.Tasks.Task<PaymentResponse> PutPaymentAsync(Payment body) {
             return PutPaymentAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<PaymentResponse> PutPaymentAsync(Payment body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<PaymentResponse> PutPaymentAsync(Payment body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -516,13 +437,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -530,30 +449,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<PaymentResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -561,22 +472,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetPaymentResponse> GetPaymentAsync()
-        {
+        public virtual System.Threading.Tasks.Task<GetPaymentResponse> GetPaymentAsync() {
             return GetPaymentAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetPaymentResponse> GetPaymentAsync(System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<GetPaymentResponse> GetPaymentAsync(System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -595,13 +502,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -609,30 +514,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<GetPaymentResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -640,22 +537,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<PersonResponse> PostPersonAsync(Person body)
-        {
+        public virtual System.Threading.Tasks.Task<PersonResponse> PostPersonAsync(Person body) {
             return PostPersonAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<PersonResponse> PostPersonAsync(Person body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<PersonResponse> PostPersonAsync(Person body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -678,13 +571,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -692,30 +583,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<PersonResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -723,22 +606,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<PersonResponse> PutPersonAsync(Person body)
-        {
+        public virtual System.Threading.Tasks.Task<PersonResponse> PutPersonAsync(Person body) {
             return PutPersonAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<PersonResponse> PutPersonAsync(Person body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<PersonResponse> PutPersonAsync(Person body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -761,13 +640,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -775,30 +652,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<PersonResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -806,22 +675,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetPersonResponse> GetPersonAsync()
-        {
+        public virtual System.Threading.Tasks.Task<GetPersonResponse> GetPersonAsync() {
             return GetPersonAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetPersonResponse> GetPersonAsync(System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<GetPersonResponse> GetPersonAsync(System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -840,13 +705,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -854,30 +717,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<GetPersonResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -885,22 +740,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<PersonResponse> RemovePersonAsync(Person body)
-        {
+        public virtual System.Threading.Tasks.Task<PersonResponse> RemovePersonAsync(Person body) {
             return RemovePersonAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<PersonResponse> RemovePersonAsync(Person body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<PersonResponse> RemovePersonAsync(Person body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -923,13 +774,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -937,30 +786,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<PersonResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -968,22 +809,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ProductResponse> PostProductAsync(Product body)
-        {
+        public virtual System.Threading.Tasks.Task<ProductResponse> PostProductAsync(Product body) {
             return PostProductAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProductResponse> PostProductAsync(Product body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<ProductResponse> PostProductAsync(Product body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1006,13 +843,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -1020,30 +855,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<ProductResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -1051,22 +878,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ProductResponse> PutProductAsync(Product body)
-        {
+        public virtual System.Threading.Tasks.Task<ProductResponse> PutProductAsync(Product body) {
             return PutProductAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProductResponse> PutProductAsync(Product body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<ProductResponse> PutProductAsync(Product body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1089,13 +912,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -1103,30 +924,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<ProductResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -1134,22 +947,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetProductResponse> GetProductAsync()
-        {
+        public virtual System.Threading.Tasks.Task<GetProductResponse> GetProductAsync() {
             return GetProductAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetProductResponse> GetProductAsync(System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<GetProductResponse> GetProductAsync(System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -1168,13 +977,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -1182,30 +989,22 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<GetProductResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
@@ -1213,22 +1012,18 @@ namespace Practice.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ProductResponse> RemoveProductAsync(Product body)
-        {
+        public virtual System.Threading.Tasks.Task<ProductResponse> RemoveProductAsync(Product body) {
             return RemoveProductAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProductResponse> RemoveProductAsync(Product body, System.Threading.CancellationToken cancellationToken)
-        {
+        public virtual async System.Threading.Tasks.Task<ProductResponse> RemoveProductAsync(Product body, System.Threading.CancellationToken cancellationToken) {
             var client_ = _httpClient;
             var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
+            try {
+                using (var request_ = new System.Net.Http.HttpRequestMessage()) {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
@@ -1251,13 +1046,11 @@ namespace Practice.Client
 
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
-                    try
-                    {
+                    try {
                         var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
                         foreach (var item_ in response_.Headers)
                             headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
+                        if (response_.Content != null && response_.Content.Headers != null) {
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
@@ -1265,39 +1058,29 @@ namespace Practice.Client
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
+                        if (status_ == 200) {
                             var objectResponse_ = await ReadObjectResponseAsync<ProductResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
+                            if (objectResponse_.Object == null) {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
+                        } else {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
-                    }
-                    finally
-                    {
+                    } finally {
                         if (disposeResponse_)
                             response_.Dispose();
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 if (disposeClient_)
                     client_.Dispose();
             }
         }
 
-        protected struct ObjectResponseResult<T>
-        {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
+        protected struct ObjectResponseResult<T> {
+            public ObjectResponseResult(T responseObject, string responseText) {
                 this.Object = responseObject;
                 this.Text = responseText;
             }
@@ -1309,67 +1092,49 @@ namespace Practice.Client
 
         public bool ReadResponseAsString { get; set; }
 
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
+        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken) {
+            if (response == null || response.Content == null) {
                 return new ObjectResponseResult<T>(default(T), string.Empty);
             }
 
-            if (ReadResponseAsString)
-            {
+            if (ReadResponseAsString) {
                 var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
+                try {
                     var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
                     return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
+                } catch (Newtonsoft.Json.JsonException exception) {
                     var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
                     throw new ApiException(message, (int)response.StatusCode, responseText, headers, exception);
                 }
-            }
-            else
-            {
-                try
-                {
+            } else {
+                try {
                     using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                     using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
+                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader)) {
                         var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
                         var typedBody = serializer.Deserialize<T>(jsonTextReader);
                         return new ObjectResponseResult<T>(typedBody, string.Empty);
                     }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
+                } catch (Newtonsoft.Json.JsonException exception) {
                     var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
                     throw new ApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
                 }
             }
         }
 
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
+        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo) {
+            if (value == null) {
                 return "";
             }
 
-            if (value is System.Enum)
-            {
+            if (value is System.Enum) {
                 var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
+                if (name != null) {
                     var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
+                    if (field != null) {
                         var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute))
                             as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
+                        if (attribute != null) {
                             return attribute.Value != null ? attribute.Value : name;
                         }
                     }
@@ -1377,25 +1142,16 @@ namespace Practice.Client
                     var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
                     return converted == null ? string.Empty : converted;
                 }
-            }
-            else if (value is bool)
-            {
+            } else if (value is bool) {
                 return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
+            } else if (value is byte[]) {
                 return System.Convert.ToBase64String((byte[])value);
-            }
-            else if (value is string[])
-            {
+            } else if (value is string[]) {
                 return string.Join(",", (string[])value);
-            }
-            else if (value.GetType().IsArray)
-            {
+            } else if (value.GetType().IsArray) {
                 var valueArray = (System.Array)value;
                 var valueTextArray = new string[valueArray.Length];
-                for (var i = 0; i < valueArray.Length; i++)
-                {
+                for (var i = 0; i < valueArray.Length; i++) {
                     valueTextArray[i] = ConvertToString(valueArray.GetValue(i), cultureInfo);
                 }
                 return string.Join(",", valueTextArray);
@@ -1407,8 +1163,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetOrderResponse
-    {
+    public partial class GetOrderResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1421,8 +1176,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetPaymentResponse
-    {
+    public partial class GetPaymentResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1435,8 +1189,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetPersonResponse
-    {
+    public partial class GetPersonResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1449,8 +1202,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GetProductResponse
-    {
+    public partial class GetProductResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1463,8 +1215,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Order
-    {
+    public partial class Order {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
@@ -1480,8 +1231,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class OrderResponse
-    {
+    public partial class OrderResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1494,8 +1244,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Payment
-    {
+    public partial class Payment {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
@@ -1514,8 +1263,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PaymentResponse
-    {
+    public partial class PaymentResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1525,8 +1273,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Person
-    {
+    public partial class Person {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
@@ -1549,8 +1296,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class PersonResponse
-    {
+    public partial class PersonResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1563,8 +1309,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Product
-    {
+    public partial class Product {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
 
@@ -1583,8 +1328,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ProductResponse
-    {
+    public partial class ProductResponse {
         [Newtonsoft.Json.JsonProperty("statusCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int StatusCode { get; set; }
 
@@ -1597,8 +1341,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum RecordStatus
-    {
+    public enum RecordStatus {
 
         _0 = 0,
 
@@ -1607,8 +1350,7 @@ namespace Practice.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum Status
-    {
+    public enum Status {
 
         _0 = 0,
 
@@ -1619,8 +1361,7 @@ namespace Practice.Client
 
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ApiException : System.Exception
-    {
+    public partial class ApiException: System.Exception {
         public int StatusCode { get; private set; }
 
         public string Response { get; private set; }
@@ -1628,27 +1369,23 @@ namespace Practice.Client
         public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
 
         public ApiException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception innerException)
-            : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
-        {
+            : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException) {
             StatusCode = statusCode;
             Response = response;
             Headers = headers;
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
         }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.8.0 (NJsonSchema v11.0.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ApiException<TResult> : ApiException
-    {
+    public partial class ApiException<TResult>: ApiException {
         public TResult Result { get; private set; }
 
         public ApiException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception innerException)
-            : base(message, statusCode, response, headers, innerException)
-        {
+            : base(message, statusCode, response, headers, innerException) {
             Result = result;
         }
     }
