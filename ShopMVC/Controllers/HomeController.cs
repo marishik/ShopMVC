@@ -7,7 +7,7 @@ namespace ShopMVC.Controllers {
     public class HomeController: Controller {
         private readonly ILogger<HomeController> _logger;
         private static HttpClient _client = new();
-        private PracticeClient _practiceClient = new("http://192.168.0.101:5064", _client); //URL NEEDS TO REF TO API ADDRESS
+        private PracticeClient _practiceClient = new("http://192.168.98.78:5064", _client); //URL NEEDS TO REF TO API ADDRESS
         public HomeController(ILogger<HomeController> logger) {
             _logger = logger;
         }
@@ -18,32 +18,25 @@ namespace ShopMVC.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Authorize()
+        public IActionResult Authorization()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Authorize(string email)
-        {
-            var person = _practiceClient
-                .GetPersonAsync().Result.Persons
-                .FirstOrDefault(p => p.Email == email);
-
-            if (person == null)
-                return View();
-            
+        public IActionResult Authorization(string email)
+        {   
             return Index();
         }
         
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Registration()
         {
             return View();
         }
         
         [HttpPost]
-        public IActionResult Register(Person person)
+        public IActionResult Registration(Person person)
         {
             _practiceClient.PostPersonAsync(person);
             return Index();

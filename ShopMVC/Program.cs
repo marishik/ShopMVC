@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
+using ShopMVC.Components;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -20,8 +23,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "authorize",
-    pattern: "{controller=Home}/{action=Authorize}/{id?}");
+    name: "authorization",
+    pattern: "{controller=Home}/{action=Authorization}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

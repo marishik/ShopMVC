@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Practice.Client;
+using System.Net;
 
 namespace ShopMVC.Controllers;
 
@@ -7,7 +8,7 @@ public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private static HttpClient _client = new();
-    private PracticeClient _practiceClient = new("http://192.168.0.101:5064", _client); //URL NEEDS TO REF TO API ADDRESS
+    private PracticeClient _practiceClient = new("http://192.168.98.78:5064", _client); //URL NEEDS TO REF TO API ADDRESS
 
     public AdminController(ILogger<HomeController> logger) {
         _logger = logger;
@@ -28,7 +29,9 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult PersonAdd(Person person)
     {
-        _practiceClient.PostPersonAsync(person);
+        var postperson = _practiceClient.PostPersonAsync(person);
+        if (postperson.Result.StatusCode == (int)HttpStatusCode.OK)
+            return View((_practiceClient.GetPersonAsync().Result.Persons.ToList(), true));
         return View();
     }
 }
