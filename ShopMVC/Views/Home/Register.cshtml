@@ -1,0 +1,38 @@
+﻿@model Practice.Client.Person
+@{
+    Layout = "_LayoutAuthorize";
+}
+
+<div>
+    <form method="post">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="inputName" class="form-label">Name</label>
+                    <input class="form-control" id="inputName" aria-describedby="nameHelp" name="name" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="inputDate" class="form-label">Date Of Birth</label>
+                    <input type="datetime-local" class="form-control" id="inputDate" name="date" required/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" name="email" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="inputStatus" class="form-label">Job Status</label>
+                    <select name="status" class="form-select" aria-label="Select your job status" required>
+                        <option selected value="0">Worker</option>
+                        <option value="1">Not worker</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Register">
+        </div>
+    </form>
+    <div class="align-items-center">
+        <a asp-area="" asp-controller="Home" asp-action="Authorize">Has an account?</a>
+    </div>
+</div>
