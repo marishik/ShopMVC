@@ -1,0 +1,30 @@
+﻿@model List<Practice.Client.Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Категория</th>
+            </tr>
+        <tbody>
+                @foreach (var product in Model)
+                {
+                <tr>
+                    <td><p>@product.Id</p></td>
+                    <td><p>@product.Name</p></td>
+                    <td><p>@product.Price</p></td>
+                    <td><p>@product.Category</p></td>
+                    <td>@Html.ActionLink("Edit", "Edit", new { id = product.Id })</td>
+                </tr>
+                }
+        </tbody>
+    </table>
+     
+</div>
