@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Practice.Client;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopMVC.Controllers;
 
+[Authorize]
 public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
