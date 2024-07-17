@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ShopMVC;
 
 var builder = WebApplication.CreateBuilder(args);
 
