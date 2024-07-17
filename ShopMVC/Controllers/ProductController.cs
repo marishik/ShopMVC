@@ -19,8 +19,8 @@ namespace ShopMVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var product = _practiceClient.GetProductAsync().Result.Products;
-            return View(product);
+            var product = _practiceClient.GetProductAsync().Result.Products.ToList();
+            return View((product));
         }
 
         [HttpGet]
