@@ -1,0 +1,31 @@
+﻿@model Practice.Client.Product
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center">
+    <form asp-action="Edit" asp-controller="Product" asp-route-id="@Model.Id">
+            <div class="row align-items-start">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="inputName" class="form-label">Name</label>
+                    <input class="form-control" id="inputName" aria-describedby="nameHelp" name="name" value="@Model.Name"/>
+                </div>
+                <div class="mb-3">
+                    <label for="inputDate" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="inputDate" name="price" value="@Model.Price" />
+                </div>
+                <div class="mb-3">
+                    <label for="inputDate" class="form-label">Category</label>
+                    <select type="text" class="form-control" id="inputDate" name="category">
+                        <option value="Другое">Другое</option>
+                        <option value="Car">Car</option>
+                        <option value="Headphones">Headphones</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
