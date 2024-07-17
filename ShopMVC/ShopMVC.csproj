@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Admin\" />
+    <ProjectReference Include="..\Practice.Client\Practice.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
