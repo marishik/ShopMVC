@@ -1,4 +1,9 @@
-﻿@model List<Practice.Client.Product>
+﻿@model (List<Practice.Client.Product> Products, double Sum)
+
+@{
+    var products = Model.Products;
+    var sum = Model.Sum;
+}
 
 <!DOCTYPE html>
 
@@ -10,15 +15,44 @@
 <body>
     <div>
         <h3>Товары в категориях: машины, наушники. </h3>
-        <table>
-            @foreach (var product in Model) {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td><p>@product.Id</p></td>
-                    <td><p>@product.Name</p></td>
-                    <td><p>@product.Price</p></td>
-                    <td><p>@product.Category</p></td>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Цена</th>
+                    <th>Категория</th>
                 </tr>
-            }
+            <tbody>
+                    @foreach (var product in products) {
+                    <tr>
+                        <td><p>@product.Id</p></td>
+                        <td><p>@product.Name</p></td>
+                        <td><p>@product.Price</p></td>
+                        <td><p>@product.Category</p></td>
+                    </tr>
+                    }
+            </tbody>
         </table>
     </div>
+    <h4> Выберите товары для покупки </h4>
+    <form method="post">
+        @foreach (var product in products) {
+            <input type="checkbox" id="@product.Id" name="productsId" value=@product.Id.ToString() />
+            <label for="@product.Id">@product.Name (id продукта = @product.Id)</label>
+            <div class="selects">
+                <input type="number" value="0" id="@product.Id" min="0" name="productsCount" />
+            </div>
+            <br>
+        }
+
+        <input type="submit" class="btn btn-warning" value="Calculate" />
+    </form>
+    <p>  </p>
+    <p>Total price:  @sum</p>
+    
+    <p>  </p>
+    <input type="submit" class="btn btn-primary" value="Buy" />
+   
+    
 </body>
