@@ -7,8 +7,8 @@ namespace ShopMVC.Controllers
     public class ReportController : Controller
     {
         private readonly ILogger<ReportController> _logger;
-
         private readonly PracticeClient _practiceClient;
+
         public ReportController(ILogger<ReportController> logger, IPracticeClientFactory practiceClientFactory) {
             _practiceClient = practiceClientFactory.CreateClient();
             _logger = logger;

@@ -45,8 +45,8 @@ namespace ShopMVC.Controllers {
             if (person == null)
                 return Results.BadRequest();
 
-            var claims = new List<Claim> { 
-                new Claim(ClaimTypes.Name, person.Email) 
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, person.Email)
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
@@ -190,16 +190,9 @@ namespace ShopMVC.Controllers {
         }
 
         public async Task<int> FindByEmail(string email) {
-            var persons = await _practiceClient.GetPersonAsync();
-            var firstPerson = persons.Persons.Where(p => p.Email == email).FirstOrDefault();
-
-            if (firstPerson != null) {
-                return firstPerson.Id;
-            }
-
-            return -1;
+            var person = await (_practiceClient.GetPersonByEmailAsync(email));
+            return person.Persons.First().Id;
         }
-
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
