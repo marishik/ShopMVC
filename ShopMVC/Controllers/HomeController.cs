@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 
-namespace ShopMVC.Controllers
-{
-    public class HomeController : Controller
-    {
+namespace ShopMVC.Controllers {
+    public class HomeController: Controller {
         private static Dictionary<int, int> _productIdCount;
         private readonly ILogger<HomeController> _logger;
         private static HttpClient _client = new();
@@ -22,22 +20,19 @@ namespace ShopMVC.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
 
         #region Authorization and Registration
 
         [HttpGet]
-        public IActionResult Authorization()
-        {
+        public IActionResult Authorization() {
             return View();
         }
 
         [HttpPost]
-        public async Task<IResult> Authorization(string? returnUrl)
-        {
+        public async Task<IResult> Authorization(string? returnUrl) {
             string email = Request.Form["email"]!;
 
             var persons = _practiceClient.GetPersonAsync().Result.Persons;
@@ -51,18 +46,21 @@ namespace ShopMVC.Controllers
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             await Request.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
-            return Results.Redirect(returnUrl ?? "Index/");
+
+            if(returnUrl == null) {
+                return Results.Redirect("/");
+            }
+
+            return Results.Redirect(returnUrl);
         }
 
-        [HttpGet]
-        public IActionResult Registration()
-        {
+            [HttpGet]
+        public IActionResult Registration() {
             return View();
         }
 
         [HttpPost]
-        public async Task<IResult> Registration(Person person)
-        {
+        public async Task<IResult> Registration(Person person) {
             await _practiceClient.PostPersonAsync(person);
 
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, person.Email) };
@@ -71,30 +69,27 @@ namespace ShopMVC.Controllers
             await Request.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
 
-            return Results.Redirect($"Index/");
+            return Results.Redirect("/");
         }
 
-        public async Task<IResult> Logout()
-        {
+        public async Task<IResult> Logout() {
             await Request.HttpContext.SignOutAsync();
-            return Results.Redirect($"Authorization/");
+            return Results.Redirect($"~/Home/Authorization");
         }
-        
+
         #endregion
 
         #region Buying product logic
 
         [HttpGet]
-        public async Task<IActionResult> Shopping()
-        {
+        public async Task<IActionResult> Shopping() {
             var productsResponse = await _practiceClient.GetProductAsync();
             var products = productsResponse.Products.ToList();
             return View((products, (double)0));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Shopping(string[] productsId, int[] productsCount)
-        {
+        public async Task<IActionResult> Shopping(string[] productsId, int[] productsCount) {
             _productIdCount = new();
 
             var productsResponse = await _practiceClient.GetProductAsync();
@@ -107,55 +102,40 @@ namespace ShopMVC.Controllers
             var filteredProducts = products.Where(m => selectedIds.Contains(m.Id)).ToList();
 
             double productsSum = 0.0;
-            int temporaryId = 0;
-            
-            for (int i = 0; i < productsCount.Length; i++)
-            {
-                bool wasSkipped = false;
-                
-                if (productsCount[i] == 0)
-                {
-                    temporaryId = i;
-                    wasSkipped = true;
-                    continue;
-                }
 
-                if (wasSkipped)
-                {
-                    productsSum += filteredProducts[temporaryId].Price * productsCount[i];
-                    _productIdCount.Add(filteredProducts[temporaryId].Id, productsCount[i]);    
-                }
-                else
-                {
-                    productsSum += filteredProducts[i].Price * productsCount[i];
-                    _productIdCount.Add(filteredProducts[i].Id, productsCount[i]);
+            for (int id = 0; id < productsId.Length; id++) {
+                for (int i = 0; i < productsCount.Length; i++) {
+                    if (productsCount[i] == 0) {
+                        continue;
+                    }
+
+                    productsSum += productsCount[i] * filteredProducts[id].Price;
+                    _productIdCount.Add(int.Parse(productsId[id]), productsCount[i]);
+
+                    productsCount[i] = 0;
+                    break;
                 }
             }
-
             return View((products, productsSum));
         }
 
         [HttpGet]
-        public IActionResult Buy()
-        {
+        public IActionResult Buy() {
             return View();
         }
 
-        public async void BuyShopping()
-        {
+        public async Task<IResult> BuyShopping() {
             var email = Request.HttpContext.User.Claims.FirstOrDefault()!.Value;
             var order = await PostOrder(email);
             var orderId = _practiceClient.GetOrdersAsync().Result.Orders.Last().Id;
             double total = 0;
 
-            foreach (var product in _productIdCount)
-            {
+            foreach (var product in _productIdCount) {
                 var price = PostPayment(product.Key, product.Value, orderId);
                 total += price * product.Value;
             }
 
-            await _practiceClient.PutOrderAsync(new Order()
-            {
+            await _practiceClient.PutOrderAsync(new Order() {
                 Id = orderId,
                 Total = total,
                 PersonId = order.PersonId,
@@ -164,17 +144,15 @@ namespace ShopMVC.Controllers
 
             _productIdCount.Clear();
 
-            Results.Redirect("/Buy");
+            return Results.Redirect("~/Home/Buy");
         }
 
-        public double PostPayment(int productId, int count, int orderId)
-        {
+        public double PostPayment(int productId, int count, int orderId) {
             var price = _practiceClient
                 .GetProductAsync().Result.Products
                 .First(x => x.Id == productId).Price;
 
-            _practiceClient.PostPaymentAsync(new Payment()
-            {
+            _practiceClient.PostPaymentAsync(new Payment() {
                 Id = 0,
                 OrderId = orderId,
                 Price = price,
@@ -185,18 +163,15 @@ namespace ShopMVC.Controllers
             return price;
         }
 
-        public async Task<Order> PostOrder(string email)
-        {
-            Order order = new Order()
-            {
+        public async Task<Order> PostOrder(string email) {
+            Order order = new Order() {
                 Id = 0,
                 Total = 0,
                 PersonId = await FindByEmail(email),
                 Date = DateTime.Now.ToUniversalTime(),
             };
 
-            if (order.Id != -1)
-            {
+            if (order.Id != -1) {
                 await _practiceClient.PostOrderAsync(order);
                 return order;
             }
@@ -204,13 +179,11 @@ namespace ShopMVC.Controllers
             return null;
         }
 
-        public async Task<int> FindByEmail(string email)
-        {
+        public async Task<int> FindByEmail(string email) {
             var persons = await _practiceClient.GetPersonAsync();
             var firstPerson = persons.Persons.Where(p => p.Email == email).FirstOrDefault();
 
-            if (firstPerson != null)
-            {
+            if (firstPerson != null) {
                 return firstPerson.Id;
             }
 
@@ -220,8 +193,7 @@ namespace ShopMVC.Controllers
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
+        public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
