@@ -10,6 +10,8 @@ namespace ShopMVC.Controllers
         static HttpClient _httpClient = new HttpClient();
         static PracticeClient _practiceClient = new PracticeClient("http://192.168.98.78:5064/", _httpClient);
 
+
+        // TODO: Переделать
         public SomeModel someModel = new SomeModel
         {
             Orders = (List<Order>)_practiceClient.GetOrdersAsync().Result.Orders,
@@ -26,6 +28,8 @@ namespace ShopMVC.Controllers
             return View(someModel);
         }
 
+
+        // TODO: Переделать
         [HttpGet]
         public async Task<IActionResult> Show(int? id)
         {

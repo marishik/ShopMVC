@@ -6,16 +6,17 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 
 namespace ShopMVC.Controllers {
+
     public class HomeController: Controller {
         private static Dictionary<int, int> _productIdCount;
         private readonly ILogger<HomeController> _logger;
         private static HttpClient _client = new();
         private PracticeClient _practiceClient = new("http://192.168.98.78:5064", _client); //URL NEEDS TO REF TO API ADDRESS
 
-        public HomeController(ILogger<HomeController> logger)
-        {
+        public HomeController(ILogger<HomeController> logger) {
             _logger = logger;
         }
 
@@ -36,26 +37,36 @@ namespace ShopMVC.Controllers {
         public async Task<IResult> Authorization(string? returnUrl) {
             string email = Request.Form["email"]!;
 
-            var persons = _practiceClient.GetPersonAsync().Result.Persons;
+            // TODO: Валидацию email 
+
+            var responsePersons = (await _practiceClient.GetPersonAsync());
+            var persons = responsePersons.Persons;
+
             var person = persons.FirstOrDefault(p => p.Email == email);
 
             if (person == null)
                 return Results.BadRequest();
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, person.Email) };
+            var claims = new List<Claim> { 
+                new Claim(ClaimTypes.Name, person.Email) 
+            };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
             await Request.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
 
-            if(returnUrl == null) {
+            if (email == "admin@admin") {
+                return Results.Redirect("/Admin/");
+            }
+
+            if (returnUrl == null) {
                 return Results.Redirect("/");
             }
 
             return Results.Redirect(returnUrl);
         }
 
-            [HttpGet]
+        [HttpGet]
         public IActionResult Registration() {
             return View();
         }
@@ -184,8 +195,7 @@ namespace ShopMVC.Controllers {
             var persons = await _practiceClient.GetPersonAsync();
             var firstPerson = persons.Persons.Where(p => p.Email == email).FirstOrDefault();
 
-            if (firstPerson != null)
-            {
+            if (firstPerson != null) {
                 return firstPerson.Id;
             }
 
@@ -198,30 +208,23 @@ namespace ShopMVC.Controllers {
         public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
-}
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
+
+        // TODO: Переделать
         [HttpGet]
-        public IActionResult Expences()
-        {
+        public async Task<IActionResult> Expences() {
             var email = Request.HttpContext.User.Claims.FirstOrDefault().Value;
 
-            var persons = _practiceClient.GetPersonAsync().Result.Persons;
-            var orders = _practiceClient.GetOrdersAsync().Result.Orders.ToList();
-            var payment = _practiceClient.GetPaymentAsync().Result.Payments.ToList();
-            var product = _practiceClient.GetProductAsync().Result.Products.ToList();
+            var persons = (await _practiceClient.GetPersonAsync()).Persons;
+            var orders = (await _practiceClient.GetOrdersAsync()).Orders.ToList();
+            var payment = (await _practiceClient.GetPaymentAsync()).Payments.ToList();
+            var product = (await _practiceClient.GetProductAsync()).Products.ToList();
 
             var person = persons?.FirstOrDefault(p => p.Email == email);
 
             double productsSum = 0.0;
-            foreach (var order in orders)
-            {
-                if (person.Id == order.PersonId)
-                {
+            foreach (var order in orders) {
+                if (person.Id == order.PersonId) {
                     productsSum += order.Total;
                 }
             }

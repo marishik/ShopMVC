@@ -11,6 +11,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options => options.LoginPath = "/Home/Authorization/");
 
 builder.Services.AddAuthorization();
+builder.Services.AddHttpClient();
+
+
+var practiceClientConfig = builder.Configuration.GetSection("PracticeClient").Get<PracticeClientFactoryConfigOptions>();
+if(practiceClientConfig == null) {
+    throw new ArgumentNullException(nameof(practiceClientConfig), $"{nameof(PracticeClientFactoryConfigOptions): cannot be null}");
+}
+builder.Services.AddPracticeClient(options => {
+    options.ApiUrl = practiceClientConfig.ApiUrl;
+});
 
 var app = builder.Build();
 
@@ -31,6 +41,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "{controller=Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "authorization",

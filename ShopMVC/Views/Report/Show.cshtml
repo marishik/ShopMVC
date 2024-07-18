@@ -1,6 +1,7 @@
 ﻿@model (ShopMVC.Models.SomeModel someModel, Practice.Client.Order Order, Practice.Client.Person Person, double Sum)
 
 @{
+    Layout = "_LayoutAdmin";
     var reports = Model.someModel;
     var order = Model.Order;
     var person = Model.Person;

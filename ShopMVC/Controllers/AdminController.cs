@@ -10,9 +10,10 @@ public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private static HttpClient _client = new();
-    private PracticeClient _practiceClient = new("http://192.168.98.78:5064", _client); //URL NEEDS TO REF TO API ADDRESS
 
-    public AdminController(ILogger<HomeController> logger) {
+    private readonly PracticeClient _practiceClient;
+    public AdminController(ILogger<HomeController> logger, IPracticeClientFactory practiceClientFactory) {
+        _practiceClient = practiceClientFactory.CreateClient();
         _logger = logger;
     }
     
