@@ -1,12 +1,10 @@
 ﻿@model (List<Practice.Client.Product> Products, double Sum)
-
 @{
     var products = Model.Products;
     var sum = Model.Sum;
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -26,10 +24,18 @@
             <tbody>
                     @foreach (var product in products) {
                     <tr>
-                        <td><p>@product.Id</p></td>
-                        <td><p>@product.Name</p></td>
-                        <td><p>@product.Price</p></td>
-                        <td><p>@product.Category</p></td>
+                        <td>
+                            <p>@product.Id</p>
+                        </td>
+                        <td>
+                            <p>@product.Name</p>
+                        </td>
+                        <td>
+                            <p>@product.Price</p>
+                        </td>
+                        <td>
+                            <p>@product.Category</p>
+                        </td>
                     </tr>
                     }
             </tbody>
@@ -38,21 +44,37 @@
     <h4> Выберите товары для покупки </h4>
     <form method="post">
         @foreach (var product in products) {
-            <input type="checkbox" id="@product.Id" name="productsId" value=@product.Id.ToString() />
-            <label for="@product.Id">@product.Name (id продукта = @product.Id)</label>
+            <input type="checkbox" id="check{@product.Id}" name="productsId" value=@product.Id />
+            <label for="check{@product.Id}">@product.Name (id продукта = @product.Id)</label>
             <div class="selects">
-                <input type="number" value="0" id="@product.Id" min="0" name="productsCount" />
+                <input class="count" type="number" value="0" id="count{@product.Id}" min="0" max="0" name="productsCount" />
             </div>
             <br>
         }
-
         <input type="submit" class="btn btn-warning" value="Calculate" />
     </form>
-    <p>  </p>
-    <p>Total price:  @sum</p>
-    
-    <p>  </p>
-    <input type="submit" class="btn btn-primary" value="Buy" />
-   
-    
+    @if (sum > 0) {
+        <p>Total price: @sum</p>
+        <button type="submit" onclick="location.href='@Url.Action("BuyShopping", "Home")'">Buy</button>
+    }
+    <script>
+        let checkBox = document.querySelectorAll('input[type=checkbox]')
+        let inp = document.querySelectorAll('.count')
+
+        checkBox.forEach((elem, index) => {
+            elem.addEventListener('change', () => {
+                if (elem.checked){
+                    inp[index].value = 1
+                    inp[index].min = 1
+                    inp[index].max = Number.MAX_SAFE_INTEGER
+                }
+                else{
+                    inp[index].value = 0
+                    inp[index].min = 0
+                    inp[index].max = 0
+                }
+                
+            })
+        })
+    </script>
 </body>
