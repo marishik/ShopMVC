@@ -27,6 +27,8 @@ namespace ShopMVC.Controllers
             return View();
         }
 
+        #region Authorization and Registration
+
         [HttpGet]
         public IActionResult Authorization()
         {
@@ -71,6 +73,16 @@ namespace ShopMVC.Controllers
 
             return Results.Redirect($"Index/");
         }
+
+        public async Task<IResult> Logout()
+        {
+            await Request.HttpContext.SignOutAsync();
+            return Results.Redirect($"Authorization/");
+        }
+        
+        #endregion
+
+        #region Buying product logic
 
         [HttpGet]
         public async Task<IActionResult> Shopping()
@@ -204,6 +216,8 @@ namespace ShopMVC.Controllers
 
             return -1;
         }
+
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
