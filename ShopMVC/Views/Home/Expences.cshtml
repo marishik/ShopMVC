@@ -1,6 +1,7 @@
 ﻿@model (Practice.Client.Person Person, List<Practice.Client.Order> Order, List<Practice.Client.Payment> Payment, List<Practice.Client.Product> Products, double Sum)
 
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Expences Page";
     var person = Model.Person;
     var orders = Model.Order;

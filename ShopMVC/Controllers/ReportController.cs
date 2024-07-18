@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Practice.Client;
 using ShopMVC.Models;
 
@@ -7,20 +6,21 @@ namespace ShopMVC.Controllers
 {
     public class ReportController : Controller
     {
-        static HttpClient _httpClient = new HttpClient();
-        static PracticeClient _practiceClient = new PracticeClient("http://192.168.98.78:5064/", _httpClient);
+        private readonly ILogger<ReportController> _logger;
 
+        private readonly PracticeClient _practiceClient;
+        public ReportController(ILogger<ReportController> logger, IPracticeClientFactory practiceClientFactory) {
+            _practiceClient = practiceClientFactory.CreateClient();
+            _logger = logger;
+        }
 
         // TODO: Переделать
-        public SomeModel someModel = new SomeModel
-        {
-            Orders = (List<Order>)_practiceClient.GetOrdersAsync().Result.Orders,
+        public SomeModel someModel = new SomeModel {
+            Orders = (List<Order>)_practiceClient.GetOrdersAsync().Orders,
             Payments = (List<Payment>)_practiceClient.GetPaymentAsync().Result.Payments,
             Persons = (List<Person>)_practiceClient.GetPersonAsync().Result.Persons,
             Products = (List<Product>)_practiceClient.GetProductAsync().Result.Products,
         };
-
-        private readonly ILogger<ReportController> _logger;
 
         [HttpGet]
         public IActionResult Index()
@@ -33,7 +33,6 @@ namespace ShopMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Show(int? id)
         {
-
             var orders = _practiceClient.GetOrdersAsync().Result.Orders;
             var persons = _practiceClient.GetPersonAsync().Result.Persons;
 

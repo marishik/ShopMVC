@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Practice.Client;
-using static NuGet.Packaging.PackagingConstants;
 
 namespace ShopMVC.Controllers
 {
@@ -8,12 +7,10 @@ namespace ShopMVC.Controllers
     {
 
         static HttpClient _httpClient = new HttpClient();
-        static PracticeClient _practiceClient = new PracticeClient("http://192.168.98.78:5064/", _httpClient);
-
         private readonly ILogger<ProductController> _logger;
-
-        public ProductController(ILogger<ProductController> logger)
-        {
+        private readonly PracticeClient _practiceClient;
+        public ProductController(ILogger<ProductController> logger, IPracticeClientFactory practiceClientFactory) {
+            _practiceClient = practiceClientFactory.CreateClient();
             _logger = logger;
         }
 

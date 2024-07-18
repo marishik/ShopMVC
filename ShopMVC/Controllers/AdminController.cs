@@ -8,11 +8,9 @@ namespace ShopMVC.Controllers;
 [Authorize]
 public class AdminController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    private static HttpClient _client = new();
-
+    private readonly ILogger<AdminController> _logger;
     private readonly PracticeClient _practiceClient;
-    public AdminController(ILogger<HomeController> logger, IPracticeClientFactory practiceClientFactory) {
+    public AdminController(ILogger<AdminController> logger, IPracticeClientFactory practiceClientFactory) {
         _practiceClient = practiceClientFactory.CreateClient();
         _logger = logger;
     }

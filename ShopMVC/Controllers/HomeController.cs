@@ -6,17 +6,15 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 
 namespace ShopMVC.Controllers {
 
     public class HomeController: Controller {
         private static Dictionary<int, int> _productIdCount;
         private readonly ILogger<HomeController> _logger;
-        private static HttpClient _client = new();
-        private PracticeClient _practiceClient = new("http://192.168.98.78:5064", _client); //URL NEEDS TO REF TO API ADDRESS
-
-        public HomeController(ILogger<HomeController> logger) {
+        private readonly PracticeClient _practiceClient;
+        public HomeController(ILogger<HomeController> logger, IPracticeClientFactory practiceClientFactory) {
+            _practiceClient = practiceClientFactory.CreateClient();
             _logger = logger;
         }
 
