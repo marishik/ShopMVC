@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Practice.Client;
 using ShopMVC.Models;
 
@@ -9,51 +10,41 @@ namespace ShopMVC.Controllers
         static HttpClient _httpClient = new HttpClient();
         static PracticeClient _practiceClient = new PracticeClient("http://192.168.98.78:5064/", _httpClient);
 
+        public SomeModel someModel = new SomeModel
+        {
+            Orders = (List<Order>)_practiceClient.GetOrdersAsync().Result.Orders,
+            Payments = (List<Payment>)_practiceClient.GetPaymentAsync().Result.Payments,
+            Persons = (List<Person>)_practiceClient.GetPersonAsync().Result.Persons,
+            Products = (List<Product>)_practiceClient.GetProductAsync().Result.Products,
+        };
+
         private readonly ILogger<ReportController> _logger;
 
         [HttpGet]
         public IActionResult Index()
         {
-            var someModel = new SomeModel
-            {
-                Orders = (List<Order>)_practiceClient.GetOrdersAsync().Result.Orders,
-                Payments = (List<Payment>)_practiceClient.GetPaymentAsync().Result.Payments,
-                Persons = (List<Person>)_practiceClient.GetPersonAsync().Result.Persons,
-                Products = (List<Product>)_practiceClient.GetProductAsync().Result.Products,
-            };
-
             return View(someModel);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Show(int? id) {
+        public async Task<IActionResult> Show(int? id)
+        {
 
-            var orders = _practiceClient.GetOrdersAsync().Result.Orders.ToList();
-            foreach (var order in orders)
+            var orders = _practiceClient.GetOrdersAsync().Result.Orders;
+            var persons = _practiceClient.GetPersonAsync().Result.Persons;
+
+            var order = orders?.FirstOrDefault(p => p.Id == id);
+            var person = persons?.FirstOrDefault(p =>p.Id == order.PersonId);
+
+            double productsSum = 0.0;
+            foreach (var paymentTotal in _practiceClient.GetPaymentAsync().Result.Payments)
             {
-                if (order.Id == id)
+                if (paymentTotal.OrderId == order.Id)
                 {
-                    var someModel = new SomeModel
-                    {
-                        OrderId = order.Id,
-                        Orders = (List<Order>)_practiceClient.GetOrdersAsync().Result.Orders,
-                        Payments = (List<Payment>)_practiceClient.GetPaymentAsync().Result.Payments,
-                        Persons = (List<Person>)_practiceClient.GetPersonAsync().Result.Persons,
-                        Products = (List<Product>)_practiceClient.GetProductAsync().Result.Products,
-                    };
-
-                    double productsSum = 0.0;
-                    foreach(var paymentTotal in _practiceClient.GetPaymentAsync().Result.Payments)
-                    {
-                        if(paymentTotal.OrderId == order.Id)
-                        {
-                            productsSum += order.Total;
-                        }
-                    }
-                    return View((someModel, productsSum));
+                    productsSum += paymentTotal.Price * paymentTotal.Count;
                 }
             }
-            return NotFound();
+            return View((someModel, order, person, productsSum));
         }
     }
 }

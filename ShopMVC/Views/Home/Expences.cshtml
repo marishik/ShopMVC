@@ -1,0 +1,60 @@
+﻿@model (Practice.Client.Person Person, List<Practice.Client.Order> Order, List<Practice.Client.Payment> Payment, List<Practice.Client.Product> Products, double Sum)
+
+@{
+    ViewData["Title"] = "Expences Page";
+    var person = Model.Person;
+    var orders = Model.Order;
+    var payments = Model.Payment;
+    var products = Model.Products;
+    var sum = Model.Sum;
+}
+
+<div class="text-center">
+
+    <h3>Заказы пользователя</h3>
+    <table class="table">
+        <tr>
+            <th><p>ID: @person.Id</p></th>
+            <th><p>Имя: @person.Name</p></th>
+            <th><p>Email: @person.Email</p></th>
+            <th><p></p></th>
+        </tr>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th><p>Name</p></th>
+                <th><p>Count</p></th>
+                <th><p>Price</p></th>
+                <th><p> Date</p></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                @foreach (var payment in payments)
+                {
+                    @foreach (var product in products)
+                    {
+                        if (order.PersonId == person.Id && payment.OrderId == order.Id && payment.ProductId == product.Id)
+                        {
+                            <tr>
+                                <td> @product.Name </td>
+                                <td> @payment.Count </td>
+                                <td> @product.Price $</td>
+                                <td>  @order.Date</td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td>@sum $</td>
+                <td>   </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>

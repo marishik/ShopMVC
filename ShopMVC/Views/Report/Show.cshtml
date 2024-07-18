@@ -1,31 +1,21 @@
-﻿@model (ShopMVC.Models.SomeModel someModel, double Sum)
+﻿@model (ShopMVC.Models.SomeModel someModel, Practice.Client.Order Order, Practice.Client.Person Person, double Sum)
 
 @{
     var reports = Model.someModel;
+    var order = Model.Order;
+    var person = Model.Person;
     var sum = Model.Sum;
 }
 
 <div class="text-center">
     <table class="table">
-        @foreach (var order in reports.Orders)
-        {
-            if (order.Id == reports.OrderId)
-            {
-                @foreach (var person in reports.Persons)
-                {
-                    if (person.Id == order.PersonId)
-                    {
-                        <tr>
-                            <td><p>Name: @person.Name</p></td>
-                            <td><p>Email: @person.Email</p></td>
-                            <td><p></p></td>
-                            <td><p></p></td>
-                            <td><p></p></td>
-                        </tr>
-                    }
-                }
-            }
-        }
+        <tr>
+            <td><p>Name: @person.Name</p></td>
+            <td><p>Email: @person.Email</p></td>
+            <td><p></p></td>
+            <td><p></p></td>
+            <td><p></p></td>
+        </tr>
     </table>
     <table class="table">
         <thead>
@@ -36,34 +26,23 @@
         <th><p>Price</p></th>
         </thead>
         <tbody>
-            @foreach (var order in reports.Orders)
-            {
                 @foreach (var payment in reports.Payments)
                 {
-                    if (order.Id == reports.OrderId)
+                    foreach (var product in reports.Products)
                     {
-                        @foreach (var product in reports.Products)
+                        if (payment.OrderId == order.Id && payment.ProductId == product.Id && order.PersonId == person.Id)
                         {
-                            @foreach (var person in reports.Persons)
-                            {
-                                if (payment.OrderId == order.Id && payment.ProductId == product.Id)
-                                {
-                                    if (order.PersonId == person.Id)
-                                    {
-                                        <tr>
-                                            <td><p></p></td>
-                                            <td><p>@product.Name</p></td>
-                                            <td><p>@product.Category</p></td>
-                                            <td><p>@payment.Count</p></td>
-                                            <td><p>@product.Price $</p></td>
-                                        </tr>
-                                    }
-                                }
-                            }
+                            <tr>
+                                <td><p></p></td>
+                                <td><p>@product.Name</p></td>
+                                <td><p>@product.Category</p></td>
+                                <td><p>@payment.Count</p></td>
+                                <td><p>@product.Price $</p></td>
+                            </tr>
                         }
                     }
                 }
-            }
+
             <tr>
                 <td><p></p></td>
                 <td><p></p></td>

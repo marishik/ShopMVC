@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Practice.Client;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace ShopMVC.Controllers
 {
@@ -41,14 +42,9 @@ namespace ShopMVC.Controllers
         public IActionResult Edit(int? id)
         {
             var products = _practiceClient.GetProductAsync().Result.Products;
-            foreach (var product in products) {
-                if (product.Id == id)
-                {
-                    return View(product);
-                }
-            }
-            return NotFound();
+            var product = products?.FirstOrDefault(p => p.Id == id);
 
+            return View(product);
         }
 
         [HttpPost]

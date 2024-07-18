@@ -13,21 +13,21 @@
         <th><p>Count</p></th>
         </thead>
         <tbody>
-                @foreach (var order in Model.Orders)
+            @foreach (var order in Model.Orders)
+            {
+                foreach (var person in Model.Persons)
                 {
-                    foreach (var person in Model.Persons)
+                    if (order.PersonId == person.Id)
                     {
-                        if (order.PersonId == person.Id)
-                        {
                         <tr>
                             <td><p>@person.Id</p></td>
                             <td><p>@person.Name</p></td>
                             <td><p>@person.Email</p></td>
                             <td>@Html.ActionLink("Show", "Show", new { id = order.Id })</td>
                         </tr>
-                        }
                     }
                 }
+            }
         </tbody>
     </table>
 
