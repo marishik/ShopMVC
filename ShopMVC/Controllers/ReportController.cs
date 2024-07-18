@@ -15,7 +15,8 @@ namespace ShopMVC.Controllers
         }
 
         // TODO: Переделать
-        public SomeModel someModel = new SomeModel {
+        public SomeModel someModel = new SomeModel
+        {
             Orders = (List<Order>)_practiceClient.GetOrdersAsync().Orders,
             Payments = (List<Payment>)_practiceClient.GetPaymentAsync().Result.Payments,
             Persons = (List<Person>)_practiceClient.GetPersonAsync().Result.Persons,
