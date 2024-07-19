@@ -1,8 +1,10 @@
-﻿@model ShopMVC.Models.SomeModel
+﻿@model ( List<Practice.Client.Order> Order, List<Practice.Client.Person> Person)
 
 @{
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Report Page";
+    var orders = Model.Order;
+    var persons = Model.Person;
 }
 
 <div class="text-center">
@@ -14,21 +16,27 @@
         <th><p>Count</p></th>
         </thead>
         <tbody>
-            @foreach (var order in Model.Orders)
-            {
-                foreach (var person in Model.Persons)
+            @{
+                int i = 1;
+                foreach (var order in orders)
                 {
-                    if (order.PersonId == person.Id)
+                    foreach (var person in persons)
                     {
-                        <tr>
-                            <td><p>@person.Id</p></td>
-                            <td><p>@person.Name</p></td>
-                            <td><p>@person.Email</p></td>
-                            <td>@Html.ActionLink("Show", "Show", new { id = order.Id })</td>
-                        </tr>
+                        if (order.PersonId == person.Id)
+                        {
+                            <tr>
+                                <td><p>@i</p></td>
+                                <td><p>@person.Name</p></td>
+                                <td><p>@person.Email</p></td>
+                                <td>@Html.ActionLink("Show", "Show", new { id = order.Id })</td>
+                            </tr>
+                            i++;
+                        }
                     }
+
                 }
             }
+            
         </tbody>
     </table>
 

@@ -14,41 +14,35 @@ namespace ShopMVC.Controllers
             _logger = logger;
         }
 
-        // TODO: Переделать
-        public SomeModel someModel = new SomeModel
-        {
-            Orders = (List<Order>)_practiceClient.GetOrdersAsync().Orders,
-            Payments = (List<Payment>)_practiceClient.GetPaymentAsync().Result.Payments,
-            Persons = (List<Person>)_practiceClient.GetPersonAsync().Result.Persons,
-            Products = (List<Product>)_practiceClient.GetProductAsync().Result.Products,
-        };
-
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(someModel);
+            var orders =  (await _practiceClient.GetOrdersAsync()).Orders.ToList();
+            var persons = (await _practiceClient.GetPersonAsync()).Persons.ToList();
+
+            return View((orders, persons));
         }
 
 
-        // TODO: Переделать
         [HttpGet]
         public async Task<IActionResult> Show(int? id)
         {
-            var orders = _practiceClient.GetOrdersAsync().Result.Orders;
-            var persons = _practiceClient.GetPersonAsync().Result.Persons;
-
-            var order = orders?.FirstOrDefault(p => p.Id == id);
-            var person = persons?.FirstOrDefault(p =>p.Id == order.PersonId);
+            var order = await _practiceClient.GetOrdersByIdAsync(id);
+            var targetOrder = order.Orders.First();
+            var person = await _practiceClient.GetPersonByIdAsync(targetOrder.PersonId);
+            var toglePerson = person.Persons.First();
+            var payments = (await _practiceClient.GetPaymentByOrderIdAsync(targetOrder.Id)).Payments.ToList();
+            var products = (await _practiceClient.GetProductAsync()).Products.ToList();
 
             double productsSum = 0.0;
-            foreach (var paymentTotal in _practiceClient.GetPaymentAsync().Result.Payments)
+            foreach (var paymentTotal in payments)
             {
-                if (paymentTotal.OrderId == order.Id)
+                if (paymentTotal.OrderId == targetOrder.Id)
                 {
                     productsSum += paymentTotal.Price * paymentTotal.Count;
                 }
             }
-            return View((someModel, order, person, productsSum));
+            return View((targetOrder, toglePerson, payments, products, productsSum));
         }
     }
 }

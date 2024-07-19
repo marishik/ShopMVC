@@ -200,25 +200,27 @@ namespace ShopMVC.Controllers {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // TODO: Переделать
         [HttpGet]
         public async Task<IActionResult> Expences() {
+
             var email = Request.HttpContext.User.Claims.FirstOrDefault().Value;
 
-            var persons = (await _practiceClient.GetPersonAsync()).Persons;
-            var orders = (await _practiceClient.GetOrdersAsync()).Orders.ToList();
-            var payment = (await _practiceClient.GetPaymentAsync()).Payments.ToList();
-            var product = (await _practiceClient.GetProductAsync()).Products.ToList();
+            var person = await _practiceClient.GetPersonByEmailAsync(email);
+            var targetPerson = person.Persons.First();
 
-            var person = persons?.FirstOrDefault(p => p.Email == email);
+            var orders = (await _practiceClient.GetOrdersByPersonIdAsync(targetPerson.Id)).Orders.ToList();
+            var payments = (await _practiceClient.GetPaymentAsync()).Payments.ToList();
+            var products = (await _practiceClient.GetProductAsync()).Products.ToList();
 
             double productsSum = 0.0;
             foreach (var order in orders) {
-                if (person.Id == order.PersonId) {
+                
+                if (targetPerson.Id == order.PersonId) {
                     productsSum += order.Total;
                 }
             }
-            return View((person, orders, payment, product, productsSum));
+
+            return View((targetPerson, orders, payments, products, productsSum));
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿@model (ShopMVC.Models.SomeModel someModel, Practice.Client.Order Order, Practice.Client.Person Person, double Sum)
+﻿@model (Practice.Client.Order Order, Practice.Client.Person Person, List<Practice.Client.Payment> Payment, List<Practice.Client.Product> Product, double Sum)
 
 @{
     Layout = "_LayoutAdmin";
-    var reports = Model.someModel;
     var order = Model.Order;
     var person = Model.Person;
+    var payments = Model.Payment;
+    var products = Model.Product;
     var sum = Model.Sum;
 }
 
@@ -27,9 +28,9 @@
         <th><p>Price</p></th>
         </thead>
         <tbody>
-                @foreach (var payment in reports.Payments)
+                @foreach (var payment in payments)
                 {
-                    foreach (var product in reports.Products)
+                    foreach (var product in products)
                     {
                         if (payment.OrderId == order.Id && payment.ProductId == product.Id && order.PersonId == person.Id)
                         {
